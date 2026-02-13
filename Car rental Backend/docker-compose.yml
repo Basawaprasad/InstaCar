@@ -1,0 +1,46 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: myapp-mysql
+    environment:
+      MYSQL_DATABASE: services
+      MYSQL_ROOT_PASSWORD: "Vinu@7028"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - carease-net
+    ports:
+      - "3307:3306"    # host:container -> keep 3307 if host 3306 is in use
+
+  app:
+    build: .
+    image: myorg/myapp:latest
+    container_name: myapp-app
+    ports:
+      - "8081:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATASOURCE_URL: jdbc:mysql://myapp-mysql:3306/services?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: "Vinu@7028"
+    depends_on:
+      - db
+    networks:
+      - carease-net
+
+  frontend:
+    image: nginx:alpine
+    container_name: carease-frontend
+    ports:
+      - "3000:80"
+    # Use the absolute path on your Windows machine (change this path if your project is elsewhere)
+    volumes:
+      - "D:/CarRentalServiceUsingJavaSpringAndReact/itv-car-rental-services/build:/usr/share/nginx/html:ro"
+    networks:
+      - carease-net
+
+volumes:
+  mysql-data:
+
+networks:
+  carease-net:
