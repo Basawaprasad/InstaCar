@@ -1,0 +1,436 @@
+/* =========================
+   Global / Reset + Base
+   ========================= */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #fbfbfd;
+  color: #0f172a;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-kerning: normal;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+/* =========================
+   Navbar logo animation
+   (targets <img> inside .navbar-brand)
+   ========================= */
+.navbar-brand img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 8px;
+  transform-origin: 50% 50%;
+  /* subtle float + gentle rotation */
+  animation: logo-float 4.5s ease-in-out infinite;
+  transition: transform 220ms ease, box-shadow 220ms ease;
+  box-shadow: 0 4px 12px rgba(2,6,23,0.12);
+}
+@keyframes logo-float {
+  0%   { transform: translateY(0) rotate(0deg); }
+  25%  { transform: translateY(-3px) rotate(1deg); }
+  50%  { transform: translateY(0) rotate(0deg); }
+  75%  { transform: translateY(2px) rotate(-1deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+
+/* add small bounce on hover for logo */
+.navbar-brand img:hover {
+  transform: translateY(-6px) rotate(2deg);
+  box-shadow: 0 18px 40px rgba(2,6,23,0.12);
+}
+
+/* =========================
+   Search input styling (slightly smaller, rounded and attractive)
+   - Targets: input[type="search"], .form-control.search-sm, .search-wrapper .form-control
+   - No JS changes required.
+   ========================= */
+.search-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+}
+
+.search-wrapper .form-control,
+input[type="search"],
+.form-control.search-sm {
+  max-width: 360px;       /* slightly narrower than full width */
+  width: 100%;
+  height: 40px;           /* compact height */
+  padding: 8px 12px 8px 40px;
+  border-radius: 999px;   /* pill */
+  border: 1px solid rgba(15,23,42,0.08);
+  background: linear-gradient(180deg,#fff,#fbfdff);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+  transition: box-shadow 180ms ease, transform 120ms ease, border-color 160ms;
+  outline: none;
+}
+
+/* left icon inside search - works if you add icon element with class .search-icon inside .search-wrapper */
+.search-wrapper .search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: rgba(15,23,42,0.45);
+  font-size: 14px;
+}
+
+/* focus */
+.search-wrapper .form-control:focus,
+input[type="search"]:focus,
+.form-control.search-sm:focus {
+  border-color: rgba(59,130,246,0.95);
+  box-shadow: 0 8px 20px rgba(59,130,246,0.06);
+  transform: translateY(-1px);
+}
+
+/* placeholder styling */
+.search-wrapper .form-control::placeholder,
+input[type="search"]::placeholder {
+  color: #9ca3af;
+  opacity: 1;
+}
+
+/* small variant for inline / toolbar usage */
+.form-control.search-sm {
+  max-width: 280px;
+  height: 36px;
+  padding-left: 36px;
+  font-size: 0.95rem;
+}
+
+/* search button next to input if used */
+.search-btn {
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: none;
+  margin-left: 8px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(90deg,#0ea5a3,#0ea5ff 120%);
+  color: white;
+  font-weight: 700;
+  box-shadow: 0 8px 24px rgba(14,165,175,0.12);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+.search-btn:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(14,165,175,0.16); }
+
+/* =========================
+   Car grid / cards (polish & hover)
+   ========================= */
+.car-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.car-card {
+  width: 300px;
+  background: linear-gradient(180deg, #ffffff, #f5f7fa);
+  border: 1px solid rgba(15, 23, 42, 0.04);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 8px 24px rgba(2,6,23,0.04);
+  transition: transform 260ms cubic-bezier(.2,.9,.2,1), box-shadow 260ms;
+  overflow: hidden;
+}
+
+.car-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 28px 64px rgba(2,6,23,0.09);
+}
+
+/* card image */
+.car-card img,
+.card-img-top {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  transition: transform 360ms ease, filter 360ms ease;
+}
+.car-card img:hover,
+.card-img-top:hover {
+  transform: scale(1.03);
+  filter: brightness(1.02);
+}
+
+/* small repeated card style override (kept minimal) */
+.card.h-100 {
+  border-radius: 12px;
+}
+
+/* =========================
+   Wheel spin animations
+   ========================= */
+.car-wheel {
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+.right-car .car-wheel { animation: spin 1s linear infinite; }
+.left-car .car-wheel { animation: spin-reverse 1s linear infinite; }
+@keyframes spin-reverse { to { transform: rotate(-360deg); } }
+
+/* =========================
+   Background / animated cars (existing)
+   ========================= */
+.bg-car {
+  pointer-events: none;
+  opacity: 0.5;
+  position: absolute;
+  z-index: 0;
+}
+.right-car { animation: car-move-right 7s linear infinite; }
+.left-car  { animation: car-move-left 10s linear infinite; }
+@keyframes car-move-right {
+  0%   { left: -140px; opacity: 0.06; transform: translateX(0); }
+  50%  { opacity: 0.18; transform: translateX(20px); }
+  100% { left: 110%; opacity: 0; transform: translateX(60px); }
+}
+@keyframes car-move-left {
+  0%   { left: 110%; opacity: 0.06; transform: translateX(0); }
+  50%  { opacity: 0.18; transform: translateX(-20px); }
+  100% { left: -140px; opacity: 0; transform: translateX(-60px); }
+}
+
+/* =========================
+   Status badges
+   ========================= */
+.status-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.2px;
+}
+
+.status-available {
+  background: rgba(34,197,94,0.12);
+  color: #166534;
+  border: 1px solid rgba(34,197,94,0.08);
+}
+
+.status-unavailable {
+  background: rgba(220,38,38,0.08);
+  color: #991b1b;
+  border: 1px solid rgba(220,38,38,0.06);
+}
+
+/* =========================
+   BookCar page styles
+   ========================= */
+.max-w-3xl {
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 24px;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.max-w-3xl .grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+/* image styles */
+.max-w-3xl img {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 12px 36px rgba(2,6,23,0.06);
+  transition: transform 450ms cubic-bezier(.2,.9,.2,1), box-shadow 350ms;
+  will-change: transform;
+  background: linear-gradient(180deg,#fff,#fbfdff);
+}
+
+.max-w-3xl img:hover {
+  transform: scale(1.03) translateY(-4px);
+  box-shadow: 0 22px 50px rgba(2,6,23,0.10);
+}
+
+/* right column card look */
+.max-w-3xl .card-panel {
+  background: linear-gradient(180deg,#ffffff,#fbfdff);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(2,6,23,0.04);
+  border: 1px solid rgba(2,6,23,0.03);
+}
+
+/* headings and meta */
+.max-w-3xl h2 { font-size: 1.6rem; margin: 0 0 6px; color: #0f172a; }
+.max-w-3xl p { color: #475569; margin: 6px 0; }
+
+/* price */
+.max-w-3xl .price { font-size: 1.1rem; font-weight: 800; color: #0b5f4a; }
+
+/* status pill */
+.max-w-3xl .status-pill {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-top: 6px;
+}
+.max-w-3xl .status-pill.available {
+  background: rgba(34,197,94,0.12); color: #166534;
+}
+.max-w-3xl .status-pill.unavailable {
+  background: rgba(220,38,38,0.08); color: #991b1b;
+}
+
+/* booking box styles */
+.max-w-3xl .booking-box {
+  margin-top: 16px;
+  padding: 18px;
+  border-radius: 10px;
+  background: linear-gradient(180deg,#f8fafc,#fff);
+  border: 1px solid rgba(15,23,42,0.03);
+}
+
+/* date inputs */
+.max-w-3xl input[type="date"] {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(15,23,42,0.08);
+  background: white;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+  transition: border-color 180ms, box-shadow 180ms, transform 120ms;
+  outline: none;
+}
+.max-w-3xl input[type="date"]:focus {
+  border-color: rgba(59,130,246,0.95);
+  box-shadow: 0 8px 20px rgba(59,130,246,0.06);
+  transform: translateY(-1px);
+}
+
+/* totals display */
+.max-w-3xl .totals { margin-top: 12px; font-size: 0.98rem; color: #0f172a; }
+.max-w-3xl .totals strong { font-weight: 800; }
+
+/* buttons */
+.max-w-3xl .btn-primary-custom {
+  background: linear-gradient(90deg,#0ea5a3,#0ea5ff 120%);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-weight: 800;
+  box-shadow: 0 10px 30px rgba(14,165,175,0.14);
+  transition: transform 140ms ease, box-shadow 140ms ease, opacity 160ms;
+  cursor: pointer;
+}
+.max-w-3xl .btn-primary-custom:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 44px rgba(14,165,175,0.20);
+}
+.max-w-3xl .btn-outline-custom {
+  background: transparent;
+  border: 1px solid rgba(2,6,23,0.08);
+  color: #0f172a;
+  padding: 10px 14px;
+  border-radius: 10px;
+}
+
+/* disabled visuals */
+.max-w-3xl .btn-primary-custom:disabled,
+.max-w-3xl .btn-outline-custom:disabled {
+  opacity: 0.56; cursor: not-allowed; transform: none; box-shadow: none;
+}
+
+/* error text */
+.max-w-3xl .form-error { color: #b91c1c; margin-top: 10px; font-size: 0.92rem; }
+
+/* controls row */
+.max-w-3xl .controls { display:flex; gap:12px; align-items:center; margin-top:18px; }
+
+/* shimmer for price */
+@keyframes shimmer { 0%{filter:brightness(1);transform:translateY(0);}50%{filter:brightness(1.06);transform:translateY(-2px);}100%{filter:brightness(1);transform:translateY(0);} }
+.max-w-3xl .price { animation: shimmer 3s ease-in-out infinite; }
+
+/* responsive */
+@media (max-width: 880px) {
+  .max-w-3xl .grid { grid-template-columns: 1fr; }
+  .max-w-3xl img { height: 260px; }
+}
+
+/* =========================
+   Misc & utility
+   ========================= */
+.container { padding-left: 12px; padding-right: 12px; }
+.spinner-border { width: 2rem; height: 2rem; }
+.text-muted { color: #6b7280 !important; }
+.card-panel { border-radius: 10px; }
+@media (max-width: 576px) {
+  .car-card, .card { width: 100%; }
+}
+
+/* =========================
+   Small UX refinements for buttons / links used throughout app
+   ========================= */
+.btn {
+  transition: transform 140ms ease, box-shadow 140ms ease, opacity 120ms;
+}
+.btn:active { transform: translateY(0); }
+.btn-primary:hover, .btn-primary:focus { transform: translateY(-3px); box-shadow: 0 18px 40px rgba(2,6,23,0.08); }
+
+.pill-icon {
+  display: inline-flex;
+  width: 18px;
+  height: 14px;
+  align-items: center;
+  justify-content: center;
+  transition: transform 220ms ease, opacity 220ms ease;
+  color: rgba(15,23,42,0.85);
+  opacity: 0.9;
+}
+.pill-icon.icon-active {
+  animation: pillPulse 1000ms ease-in-out infinite;
+  transform-origin: center;
+}
+@keyframes pillPulse {
+  0% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-3px) scale(1.06); }
+  100% { transform: translateY(0) scale(1); }
+}
+.form-control.form-control-sm { border-radius: 8px; padding: 7px 10px; }
+.btn-outline-secondary.btn-sm { border-radius: 8px; }
+.card.car-hover { transition: transform 260ms cubic-bezier(.2,.9,.2,1), box-shadow 260ms; }
+.card.car-hover:hover { transform: translateY(-8px); box-shadow: 0 18px 40px rgba(2,6,23,0.10); }
+
+
+/* =========================
+   End of index.css
+   ========================= */
